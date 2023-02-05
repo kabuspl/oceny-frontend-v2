@@ -1,0 +1,22 @@
+{
+  "name": "oceny-frontend-v2",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitea.kabus.ovh/kabus/oceny-frontend-v2.git"
+  },
+  "author": "kabus",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  }
+}
