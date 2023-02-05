@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   entry: './src/index.ts',
@@ -18,7 +19,8 @@ module.exports = {
         patterns: [
             { from: 'src/static' }
         ]
-    })
+    }),
+    new Dotenv()
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
