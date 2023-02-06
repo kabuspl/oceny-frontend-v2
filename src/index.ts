@@ -24,7 +24,6 @@ backArrow.addEventListener("click",()=>{
     tempdate.setDate(currentDate.getDate()-1);
     if(tempdate<firstDate) return;
     currentDate.setDate(currentDate.getDate()-1)
-    dateDisplay.textContent = currentDate.toISOString().substring(0,10)
     updateUI(currentDate);
 });
 forwardArrow.addEventListener("click",()=>{
@@ -32,7 +31,6 @@ forwardArrow.addEventListener("click",()=>{
     tempdate.setDate(currentDate.getDate()+1);
     if(tempdate>latestDate) return;
     currentDate.setDate(currentDate.getDate()+1)
-    dateDisplay.textContent = currentDate.toISOString().substring(0,10)
     updateUI(currentDate);
 });
 
@@ -42,11 +40,11 @@ async function start() {
     datePicker.max = latestDate.toISOString().substring(0,10);
     datePicker.min = firstDate.toISOString().substring(0,10);
     currentDate = new Date(latestDate.getTime());
-    dateDisplay.textContent = currentDate.toISOString().substring(0,10)
     updateUI(currentDate);
 }
 
 async function updateUI(date: Date) {
+    dateDisplay.textContent = currentDate.toISOString().substring(0,10)
     let data = await getDayDiffForDate(date);
     if(!data) return false;
     let daydiff: DayDiff = data;
