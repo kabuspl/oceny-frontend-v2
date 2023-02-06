@@ -5,6 +5,7 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 import { ChartConfiguration, ChartData } from "chart.js/dist/types/index";
 import 'chartjs-adapter-date-fns';
 import {pl} from 'date-fns/locale';
+import { variant } from "./gradename";
 
 Chart.register(zoomPlugin);
 
