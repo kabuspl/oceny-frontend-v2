@@ -6,7 +6,16 @@ const gradeDetails = document.querySelector("#grades-details");
 
 const backArrow = document.querySelector("#back");
 const dateDisplay = document.querySelector("#date-display");
+const datePicker: HTMLFormElement = document.querySelector("#date-picker");
 const forwardArrow = document.querySelector("#forward");
+
+dateDisplay.addEventListener("click",()=>{
+    datePicker.showPicker();
+})
+datePicker.addEventListener("change", ()=>{
+    currentDate=new Date(datePicker.value);
+    updateUI(currentDate);
+})
 
 let currentDate: Date, latestDate: Date, firstDate: Date;
 
@@ -30,6 +39,8 @@ forwardArrow.addEventListener("click",()=>{
 async function start() {
     latestDate = await getLatestDate();
     firstDate = await getFirstDate();
+    datePicker.max = latestDate.toISOString().substring(0,10);
+    datePicker.min = firstDate.toISOString().substring(0,10);
     currentDate = new Date(latestDate.getTime());
     dateDisplay.textContent = currentDate.toISOString().substring(0,10)
     updateUI(currentDate);
