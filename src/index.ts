@@ -154,15 +154,19 @@ async function updateUI(date: Date) {
     for(let subject in daydiff) {
         let subjectGrades = daydiff[subject];
         for(let grade in subjectGrades) {
+            if (subjectGrades[grade] > 0) gradeDetails.innerHTML += subjectGrades[grade] + " " + variant(parseInt(grade), subjectGrades[grade]) + ", "
             let gradeCount: number = subjectGrades[parseInt(grade)];
             gradesCount+=gradeCount;
         }
+        gradeDetails.innerHTML = gradeDetails.innerHTML.slice(0, -2);
+        gradeDetails.innerHTML += " z " + subject.toLocaleLowerCase() + "<br>";
     }
     gradeCounter.textContent = gradesCount.toString();
     if(gradesCount==0) {
         gradeDetails.parentElement.style.display="none";
     }else{
         gradeDetails.parentElement.style.display="block";
+
     }
 }
 
