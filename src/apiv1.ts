@@ -20,7 +20,7 @@ export async function getFirstDate() {
 }
 
 export async function getFullDayDiff() {
-    let data: ApiData = await fetch(process.env.API_ENDPOINT+"/v1/getArchivalDayDiff").then(data=>data.json());
+    let data: ApiData = await fetch(process.env.API_ENDPOINT+"/v1/getDayDiff").then(data=>data.json());
     if(!data.success) return false;
     let fulldaydiff: FullDayDiff = data.data as FullDayDiff;
     return fulldaydiff;
