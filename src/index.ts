@@ -54,16 +54,13 @@ async function start() {
     if(!chartDataRaw) return false;
     for(let day in chartDataRaw) {
         const daydiff: DayDiff = chartDataRaw[day];
-        let grades = 0;
         let gradeCount: GradeCount = {"1":0,"2":0,"3":0,"4":0,"5":0,"6":0}
         for(let subject in daydiff) {
             let subjectGrades = daydiff[subject];
-            // grades+=Object.values(subjectGrades).reduce((a,b)=>a+b,0);
             for(let grade in subjectGrades) {
                 gradeCount[grade]+=subjectGrades[grade];
             }
         }
-        console.log(gradeCount);
         for(let grade in gradeCount) {
             if(!gradesChartDatasets[parseInt(grade)-1]) gradesChartDatasets[parseInt(grade)-1] = {
                 label: grade,
@@ -76,12 +73,6 @@ async function start() {
             })
         }
     }
-    // const datasets: ChartData<"line", GradesChartDatasets> = {
-    //     datasets: [{
-    //         label: "Oceny",
-    //         data: gradesChartDatasets
-    //     }]
-    // };
     const chartConfig: ChartConfiguration<"line", {
         x: string,
         y: number
