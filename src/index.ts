@@ -39,7 +39,15 @@ async function updateUI(date: Date) {
     let data = await getDayDiffForDate(date);
     if(!data) return false;
     let daydiff: DayDiff = data;
-    gradeCounter.textContent = daydiff["Matematyka"][1].toString();
+    let gradesCount = 0;
+    for(let subject in daydiff) {
+        let subjectGrades = daydiff[subject];
+        for(let grade in subjectGrades) {
+            let gradeCount: number = subjectGrades[parseInt(grade)];
+            gradesCount+=gradeCount;
+        }
+    }
+    gradeCounter.textContent = gradesCount.toString();
 }
 
 start();
