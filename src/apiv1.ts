@@ -12,3 +12,9 @@ export async function getLatestDate() {
     let latestDate = new Date(Object.keys(data.data).at(-1));
     return latestDate;
 }
+
+export async function getFirstDate() {
+    let data: ApiData = await fetch(process.env.API_ENDPOINT+"/v1/getDayDiff").then(data=>data.json());
+    let firstDate = new Date(Object.keys(data.data).at(0));
+    return firstDate;
+}
