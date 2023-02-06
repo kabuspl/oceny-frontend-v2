@@ -1,5 +1,12 @@
-import { getDayDiffForDate, getFirstDate, getLatestDate } from "./apiv1";
-import { DayDiff } from "./types";
+import { getDayDiffForDate, getFirstDate, getFullDayDiff, getLatestDate } from "./apiv1";
+import { DayDiff, GradeCount, GradesChartDatasets } from "./types";
+import Chart from 'chart.js/auto';
+import zoomPlugin from 'chartjs-plugin-zoom';
+import { ChartConfiguration, ChartData } from "chart.js/dist/types/index";
+import 'chartjs-adapter-date-fns';
+import {pl} from 'date-fns/locale';
+
+Chart.register(zoomPlugin);
 
 const gradeCounter = document.querySelector("#grades-count");
 const gradeDetails = document.querySelector("#grades-details");
@@ -41,6 +48,108 @@ async function start() {
     datePicker.min = firstDate.toISOString().substring(0,10);
     currentDate = new Date(latestDate.getTime());
     updateUI(currentDate);
+    const chartDataRaw = await getFullDayDiff();
+    let gradesChartDatasets: GradesChartDatasets= [];
+    if(!chartDataRaw) return false;
+    for(let day in chartDataRaw) {
+        const daydiff: DayDiff = chartDataRaw[day];
+        let grades = 0;
+        let gradeCount: GradeCount = {"1":0,"2":0,"3":0,"4":0,"5":0,"6":0}
+        for(let subject in daydiff) {
+            let subjectGrades = daydiff[subject];
+            // grades+=Object.values(subjectGrades).reduce((a,b)=>a+b,0);
+            for(let grade in subjectGrades) {
+                gradeCount[grade]+=subjectGrades[grade];
+            }
+        }
+        console.log(gradeCount);
+        for(let grade in gradeCount) {
+            if(!gradesChartDatasets[parseInt(grade)-1]) gradesChartDatasets[parseInt(grade)-1] = {
+                label: grade,
+                data: []
+            }
+            gradesChartDatasets[parseInt(grade)-1].data.push({
+                x: day,
+                y: gradeCount[grade]
+            })
+        }
+    }
+    // const datasets: ChartData<"line", GradesChartDatasets> = {
+    //     datasets: [{
+    //         label: "Oceny",
+    //         data: gradesChartDatasets
+    //     }]
+    // };
+    const chartConfig: ChartConfiguration<"line", {
+        x: string,
+        y: number
+    }[]> = {
+        type: 'line',
+        data: {
+            datasets: gradesChartDatasets,
+        },
+        options: {
+            maintainAspectRatio: false,
+            transitions: {
+                zoom: {
+                    animation: {
+                        duration: 1000,
+                        easing: "easeInOutSine"
+                    }
+                }
+            },
+            interaction: {
+                mode: 'index',
+            },
+            plugins: {
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: "x"
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'x'
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                      footer: (tooltipItems) => {
+                        let sum = 0;
+                      
+                        tooltipItems.forEach(function(tooltipItem) {
+                          sum += tooltipItem.parsed.y;
+                        });
+                        return 'Suma: ' + sum;
+                      },
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'time',
+                    adapters: {
+                        date: {
+                            locale: pl
+                        }
+                    }
+                  },
+                  y: {
+                    stacked: true
+                  }
+              }
+              
+        }
+    };
+    new Chart(
+        document.getElementById('chart') as HTMLCanvasElement,
+        chartConfig
+    );
 }
 
 async function updateUI(date: Date) {
@@ -65,3 +174,4 @@ async function updateUI(date: Date) {
 }
 
 start();
+

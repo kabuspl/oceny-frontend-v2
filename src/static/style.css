@@ -69,3 +69,8 @@ h1 {
     padding: 0;
     border: none;
 }
+
+#chart {
+    width: 400px;
+    height: 200px;
+}
