@@ -1,11 +1,13 @@
 import { getDayDiffForDate, getFirstDate, getFullDayDiff, getLatestDate } from "./apiv1";
 import { DayDiff, GradeCount, GradesChartDatasets } from "./types";
 import Chart from 'chart.js/auto';
+import { getRelativePosition } from 'chart.js/helpers';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { ChartConfiguration, ChartData } from "chart.js/dist/types/index";
 import 'chartjs-adapter-date-fns';
 import {pl} from 'date-fns/locale';
 import { variant } from "./gradename";
+import { plugins } from "../webpack.config";
 
 Chart.register(zoomPlugin);
 
@@ -94,6 +96,14 @@ async function start() {
             interaction: {
                 mode: 'index',
             },
+            onClick: (e)=>{
+                //@ts-ignore
+                const pos = getRelativePosition(e, chart);
+                const dataX = chart.scales.x.getValueForPixel(pos.x);
+                let date = new Date(dataX+7200000);
+                currentDate=date;
+                updateUI(currentDate);
+            },
             plugins: {
                 zoom: {
                     pan: {
@@ -139,7 +149,7 @@ async function start() {
               
         }
     };
-    new Chart(
+    const chart = new Chart(
         document.getElementById('chart') as HTMLCanvasElement,
         chartConfig
     );
