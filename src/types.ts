@@ -21,7 +21,8 @@ export type GradesChartDatasets =
     data: {
         x: string,
         y: number
-    }[]
+    }[],
+    fill: string
 }[]
 
 export type GradeCount = {

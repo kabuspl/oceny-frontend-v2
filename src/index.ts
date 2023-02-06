@@ -66,7 +66,8 @@ async function start() {
         for(let grade in gradeCount) {
             if(!gradesChartDatasets[parseInt(grade)-1]) gradesChartDatasets[parseInt(grade)-1] = {
                 label: grade,
-                data: []
+                data: [],
+                fill: "-1"
             }
             gradesChartDatasets[parseInt(grade)-1].data.push({
                 x: day,
