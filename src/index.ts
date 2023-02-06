@@ -57,6 +57,11 @@ async function updateUI(date: Date) {
         }
     }
     gradeCounter.textContent = gradesCount.toString();
+    if(gradesCount==0) {
+        gradeDetails.parentElement.style.display="none";
+    }else{
+        gradeDetails.parentElement.style.display="block";
+    }
 }
 
 start();
