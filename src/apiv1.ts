@@ -3,7 +3,7 @@ import { ApiData, DayDiff, FullDayDiff } from "./types";
 export async function getDayDiffForDate(date: Date) {
     let data: ApiData = await fetch(process.env.API_ENDPOINT+"/v1/getDayDiffForDate/"+date.toISOString().substring(0,10)).then(data=>data.json());
     if(!data.success) return false;
-    let daydiff: DayDiff = data.data;
+    let daydiff: DayDiff = data.data as DayDiff;
     return daydiff;
 }
 
