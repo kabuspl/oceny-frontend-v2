@@ -157,6 +157,7 @@ async function start() {
 
 async function updateUI(date: Date) {
     dateDisplay.textContent = currentDate.toISOString().substring(0,10)
+    gradeDetails.innerHTML="";
     let data = await getDayDiffForDate(date);
     if(!data) return false;
     let daydiff: DayDiff = data;
