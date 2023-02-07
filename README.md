@@ -1,13 +1,17 @@
 # oceny-frontend-v2
 
-## Installing
+## Running
 
-Install npm packages:
+- Install npm packages:
 ```bash
 npm install
 ```
 
-Compile:
+- Create and edit .env file based on .env.template
+
+- Compile:
 ```bash
 npx webpack
 ```
+
+- Launch index.html from dist directory
