@@ -2,7 +2,10 @@ import { ChartDataset } from "chart.js";
 
 export type DayDiff = {
     [subject: string]: {
-        [grade: number]: number
+        grades: {
+            [grade: number]: number
+        },
+        average: number
     }
 };
 

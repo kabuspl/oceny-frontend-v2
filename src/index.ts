@@ -58,7 +58,7 @@ async function start() {
         const daydiff: DayDiff = chartDataRaw[day];
         let gradeCount: GradeCount = {"1":0,"2":0,"3":0,"4":0,"5":0,"6":0}
         for(let subject in daydiff) {
-            let subjectGrades = daydiff[subject];
+            let subjectGrades = daydiff[subject].grades;
             for(let grade in subjectGrades) {
                 gradeCount[grade]+=subjectGrades[grade];
             }
@@ -163,7 +163,7 @@ async function updateUI(date: Date) {
     let daydiff: DayDiff = data;
     let gradesCount = 0;
     for(let subject in daydiff) {
-        let subjectGrades = daydiff[subject];
+        let subjectGrades = daydiff[subject].grades;
         for(let grade in subjectGrades) {
             if (subjectGrades[grade] > 0) gradeDetails.innerHTML += subjectGrades[grade] + " " + variant(parseInt(grade), subjectGrades[grade]) + ", "
             let gradeCount: number = subjectGrades[parseInt(grade)];
