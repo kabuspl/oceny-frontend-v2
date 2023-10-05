@@ -1,4 +1,7 @@
 # oceny-frontend-v2
+Web frontend for [oceny-backend](https://github.com/kabuspl/oceny-backend). My first project using TypeScript.  
+
+See it in action: [oceny.kabus.ovh](https://oceny.kabus.ovh/)
 
 ## Running
 
