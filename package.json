@@ -1,6 +1,6 @@
 {
   "name": "oceny-frontend-v2",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "private": true,
   "scripts": {
@@ -8,10 +8,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitea.kabus.ovh/kabus/oceny-frontend-v2.git"
+    "url": "https://github.com/kabuspl/oceny-frontend-v2.git"
   },
-  "author": "kabus",
-  "license": "GPL-3.0-only",
+  "author": "kabuspl",
+  "license": "AGPL-3.0",
   "devDependencies": {
     "copy-webpack-plugin": "^11.0.0",
     "dotenv-webpack": "^8.0.1",
