@@ -1,5 +1,4 @@
-import { getDayDiffForDate, getFirstDate, getFullDayDiff, getLatestDate } from "./apiv1";
-import { DayDiff, GradeCount, GradesChartDatasets } from "./types";
+import { getDayDiffForDate, getFirstDate, getFullDayDiff, getLatestDate, DayDiff } from "./apiv1";
 import Chart from 'chart.js/auto';
 import { getRelativePosition } from 'chart.js/helpers';
 import zoomPlugin from 'chartjs-plugin-zoom';
@@ -43,6 +42,20 @@ forwardArrow.addEventListener("click",()=>{
     currentDate.setDate(currentDate.getDate()+1)
     updateUI(currentDate);
 });
+
+type GradesChartDatasets =
+    {
+    label: string,
+    data: {
+        x: string,
+        y: number
+    }[],
+    fill: string
+}[]
+
+type GradeCount = {
+    [grade: number]: number
+}
 
 async function start() {
     latestDate = await getLatestDate();

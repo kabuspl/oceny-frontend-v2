@@ -1,4 +1,20 @@
-import { ApiData, DayDiff, FullDayDiff } from "./types";
+export type DayDiff = {
+    [subject: string]: {
+        grades: {
+            [grade: number]: number
+        },
+        average: number
+    }
+};
+
+export type FullDayDiff = {
+    [date: string]: DayDiff
+}
+
+export type ApiData = {
+    success: boolean,
+    data?: DayDiff | FullDayDiff
+}
 
 export async function getDayDiffForDate(date: Date) {
     let data: ApiData = await fetch(process.env.API_ENDPOINT+"/v1/getDayDiffForDate/"+date.toISOString().substring(0,10)).then(data=>data.json());
